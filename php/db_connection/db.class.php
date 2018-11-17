@@ -1,4 +1,5 @@
 <?php
+	session_start();
 
 	class DbC{
 		private $serverName;
@@ -13,9 +14,7 @@
 			$this->password = "1234";
 			$this->dbname = "db_inventory";
 			$this->charset = "utf8mb4";
-			
-			//$conn = new mysqli($this->serverName, $this->userName, $this->password, $this->dbname);
-			
+
 			try{
 				$dsn = "mysql:host=".$this->serverName.";dbname=".$this->dbname.";charset=".$this->charset;
 				$pdo = new PDO($dsn, $this->userName, $this->password);

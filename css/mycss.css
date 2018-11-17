@@ -1,10 +1,40 @@
 *{ 
 	margin:0 ;
 	padding:0 ;
-	box-sizing: border-box !important;
+	box-sizing: border-box;
+}
+#select-categoria-producto{
+	width: 100%;
+}
+.modal-loading {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('http://i.stack.imgur.com/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}
+.div-padd-fields{
+	padding-top: 10px;
 }
 
-.btn_edit{
-	border-radius: 10px;
-	-moz-border-radius: 10px;
+#div-padd-fields{
+	width: 100%;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading .modal-loading {
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .modal-loading {
+    display: block;
 }

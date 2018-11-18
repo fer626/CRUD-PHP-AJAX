@@ -6,6 +6,10 @@
 #select-categoria-producto{
 	width: 100%;
 }
+#recover-password:hover{
+    color:blue;
+    text-decoration: underline;
+}
 .modal-loading {
     display:    none;
     position:   fixed;

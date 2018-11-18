@@ -1,7 +1,10 @@
 $body = $("body");
-var editProducto = new FormData();
 $(document).ready(function(){
 	//Primer Listener en ejecutarse en contexto de toda la pagina
+
+	if (window.location.pathname == "/otro-basicmvc/login.php") {
+		$('.navbar').hide();
+	}
 	getAllProductos();
 	
 	$('input textarea select').on('change paste keyup',function(){

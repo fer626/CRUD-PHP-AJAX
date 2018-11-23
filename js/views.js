@@ -90,7 +90,7 @@ function getAllProductos(){
 				htmlStr += '		<td>'+data[i].categoria+'</td>';
 				htmlStr += '		<td>';
 				htmlStr += '			<a onclick="showDataProducto(this)" data-id="'+data[i].id+'" class="btn btn-warning" href="#" role="button"><i class="fa fa-pencil-square-o"></i></a>';
-				htmlStr += '			<a onclick="deleteProducto(this)" data-id="'+data[i].id+'" class="btn btn-danger" href="#" role="button"><i class="fa fa-trash"></i></a>';
+				htmlStr += '			<a onclick="showConfirm(this)" data-id="'+data[i].id+'" data-nombre="'+data[i].nombre+'" data-descripcion="'+data[i].descripcion+'" data-categoria="'+data[i].categoria+'" class="btn btn-danger" href="#" role="button"><i class="fa fa-trash"></i></a>';
 				htmlStr += '		</td>';
 				htmlStr += '	</tr>';
 			}
@@ -110,6 +110,8 @@ function getAllProductos(){
 function prepareModal(){
 	fillSelectCategoria();
 	$('#btn-guardar-producto').attr({'onclick': 'saveNewProducto()'});
+	$('#exampleModalLongTitle').html('Agregar nuevo producto');
+	$('#btn-guardar-producto').html('Agregar')
 	$('.editModal').modal('show');
 }
 function saveNewProducto(){
@@ -143,20 +145,21 @@ function saveNewProducto(){
 		}
 	});
 }
-function deleteProducto(id){
-	alert("deleteProducto: "+$(id).attr('data-id'));
+
+function deleteProdcuto(id){
 	$.ajax({
 		url: "php/class.php",
 		type: "POST",
 		dataType: "json",
 		data:{
 			metodo: 'deleteProducto',
-			id: $(id).attr('data-id')
+			id: id
 		},
 		success: function(data){
 			if(data.success){
 				$('.body-form').empty();
 				getAllProductos();
+				$('#confirm-modal').modal('toggle');
 			}else{
 				console.log("no se hizo la machaca");
 			}
@@ -170,6 +173,16 @@ function deleteProducto(id){
 			removeData();
 		}
 	});
+}
+
+function showConfirm(obj){
+	
+	$('.name-producto').html('<h6 style="padding=0;"><b>Nombre</b>:</h6> '+$(obj).attr('data-nombre'));
+	$('.desc-producto').html('<h6 style="padding=0;"><b>Descripcion</b>:</h6> '+$(obj).attr('data-descripcion'));
+	$('.cat-producto').html('<h6 style="padding=0;"><b>Categoria</b>:</h6> '+$(obj).attr('data-categoria'));
+	$('#btn-confirm-delete').attr({'onclick':'deleteProdcuto('+$(obj).attr('data-id')+')'});
+	
+	$('#confirm-modal').modal('show');
 }
 function showDataProducto(obj){
 	fillSelectCategoria();
@@ -191,6 +204,8 @@ function showDataProducto(obj){
 					'data-id': $(obj).attr('data-id'),
 					'onclick': 'guardarCambiosProducto('+$(obj).attr('data-id')+')'
 				});
+			$('#exampleModalLongTitle').html('Editar producto');
+			$('#btn-guardar-producto').html('Guardar');
 			$('.editModal').modal('show');
 		},
 		error: function(error, xhr, status){
